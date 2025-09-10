@@ -1,4 +1,4 @@
-import { AuthLayout, MainLayout } from "@/components";
+import { AuthLayout, MainLayout, PrivateRoute } from "@/components";
 import { ROUTE_PATHS } from "@/constants";
 import {
   Homepage,
@@ -15,7 +15,11 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: ROUTE_PATHS.ROOT,
-        element: <MainLayout />,
+        element: (
+          <PrivateRoute>
+            <MainLayout />
+          </PrivateRoute>
+        ),
         children: [
           {
             index: true,

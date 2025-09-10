@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import _ from "lodash";
 import { Link, useNavigate } from "react-router";
-import { ROUTE_PATHS } from "@/constants";
+import { APP_CONFIG, ROUTE_PATHS } from "@/constants";
 import { useLogin } from "@/services";
 
 export const LoginPage: FunctionComponent = () => {
@@ -30,9 +30,14 @@ export const LoginPage: FunctionComponent = () => {
     formState: { isDirty, isValid },
   } = form;
 
-  const onSubmit = (data: TLoginFormSchema) => {
-    login(data);
-    // navigate(ROUTE_PATHS.ROOT);
+  const onSubmit = async (data: TLoginFormSchema) => {
+    const response = await login(data);
+    console.log(response);
+
+    if (response.ok) {
+      localStorage.setItem(APP_CONFIG.ACCESS_TOKEN_KEY, response.body.token);
+      navigate(ROUTE_PATHS.ROOT);
+    }
   };
 
   return (

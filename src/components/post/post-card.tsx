@@ -41,7 +41,7 @@ export const PostCard = ({ author, createdAt, content }: PostCardProps) => {
   }, [isExpanded]);
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white p-5 rounded-md shadow-sm space-y-4">
+    <div className="w-full bg-white p-5 rounded-md shadow-sm space-y-4">
       <div className="flex items-center gap-2 w-full">
         <img
           alt="avatar"

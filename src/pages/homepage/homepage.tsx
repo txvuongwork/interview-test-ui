@@ -168,7 +168,7 @@ setTimeout(() => {
   };
 
   return (
-    <div className="w-full py-5 space-y-5">
+    <div className="w-full py-5 space-y-5 max-w-3xl mx-auto">
       <PostCard {...postData} />
       <PostCard {...postData2} />
     </div>
