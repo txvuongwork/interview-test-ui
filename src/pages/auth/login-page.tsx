@@ -1,19 +1,25 @@
-import { Button, Form, InputField } from "@/components";
+import { Button, ErrorModal, Form, InputField } from "@/components";
+import { BASE_QUERY_KEYS } from "@/config/react-query";
+import { APP_CONFIG, ROUTE_PATHS } from "@/constants";
 import { useAuthSchema, type TLoginFormSchema } from "@/schemas";
+import { useLogin } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { FunctionComponent } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import _ from "lodash";
+import { LoaderCircle } from "lucide-react";
+import { useState, type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import _ from "lodash";
 import { Link, useNavigate } from "react-router";
-import { APP_CONFIG, ROUTE_PATHS } from "@/constants";
-import { useLogin } from "@/services";
 
 export const LoginPage: FunctionComponent = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { loginFormSchema } = useAuthSchema();
   const { mutateAsync: login, isPending: isLoginPending } = useLogin();
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const form = useForm<TLoginFormSchema>({
     resolver: zodResolver(loginFormSchema),
@@ -32,11 +38,13 @@ export const LoginPage: FunctionComponent = () => {
 
   const onSubmit = async (data: TLoginFormSchema) => {
     const response = await login(data);
-    console.log(response);
 
     if (response.ok) {
       localStorage.setItem(APP_CONFIG.ACCESS_TOKEN_KEY, response.body.token);
+      queryClient.invalidateQueries({ queryKey: [BASE_QUERY_KEYS.PROFILE] });
       navigate(ROUTE_PATHS.ROOT);
+    } else {
+      setErrorMessage(response.error.message);
     }
   };
 
@@ -75,7 +83,10 @@ export const LoginPage: FunctionComponent = () => {
               type="submit"
               disabled={!isDirty || !isValid || isLoginPending}
             >
-              {t("button.login")}
+              {t("button.login")}{" "}
+              {isLoginPending && (
+                <LoaderCircle className="size-4 animate-spin" />
+              )}
             </Button>
             <p className="text-sm text-center">
               {t("loginPage.dontHaveAccount")}
@@ -87,6 +98,10 @@ export const LoginPage: FunctionComponent = () => {
           </div>
         </form>
       </Form>
+
+      <ErrorModal isOpen={!!errorMessage} onClose={() => setErrorMessage("")}>
+        <p className="text-base">{t(errorMessage)}</p>
+      </ErrorModal>
     </div>
   );
 };

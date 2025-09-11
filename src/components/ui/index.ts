@@ -5,3 +5,5 @@ export * from "./label";
 export * from "./input";
 export * from "./alert-dialog";
 export * from "./tooltip";
+export * from "./modal";
+export * from "./sonner";

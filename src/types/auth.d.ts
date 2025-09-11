@@ -11,3 +11,10 @@ export type TLoginResponse = {
   user: TUser;
   message: string;
 };
+
+export type TRegisterRequest = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};

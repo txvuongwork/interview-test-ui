@@ -1,8 +1,8 @@
-import { APP_CONFIG } from "@/constants";
+import { APP_CONFIG, ROUTE_PATHS } from "@/constants";
 import { Edit, MessageCircle, Search } from "lucide-react";
 import type { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 
 type TKeyFeature = {
   title: string;
@@ -12,6 +12,11 @@ type TKeyFeature = {
 
 export const AuthLayout: FunctionComponent = () => {
   const { t } = useTranslation();
+
+  const token = localStorage.getItem(APP_CONFIG.ACCESS_TOKEN_KEY);
+  if (token) {
+    return <Navigate to={ROUTE_PATHS.ROOT} replace />;
+  }
 
   const keyFeatures: TKeyFeature[] = [
     {

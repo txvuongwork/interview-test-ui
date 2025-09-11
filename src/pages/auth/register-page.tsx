@@ -1,15 +1,22 @@
-import { Button, Form, InputField } from "@/components";
+import { Button, ErrorModal, Form, InputField } from "@/components";
 import { APP_CONFIG, ROUTE_PATHS } from "@/constants";
 import { useAuthSchema, type TRegisterFormSchema } from "@/schemas";
+import { useRegister } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { FunctionComponent } from "react";
+import { LoaderCircle } from "lucide-react";
+import { useState, type FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 
 export const RegisterPage: FunctionComponent = () => {
   const { t } = useTranslation();
   const { registerFormSchema } = useAuthSchema();
+  const navigate = useNavigate();
+  const { mutateAsync: register, isPending: isRegisterPending } = useRegister();
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const form = useForm<TRegisterFormSchema>({
     resolver: zodResolver(registerFormSchema),
@@ -26,8 +33,15 @@ export const RegisterPage: FunctionComponent = () => {
     formState: { isDirty, isValid },
   } = form;
 
-  const onSubmit = (data: TRegisterFormSchema) => {
-    console.log(data);
+  const onSubmit = async (data: TRegisterFormSchema) => {
+    const response = await register(data);
+
+    if (response.ok) {
+      navigate(ROUTE_PATHS.AUTH.LOGIN);
+      toast.success(t("registerPage.message.success"));
+    } else {
+      setErrorMessage(response.error.message);
+    }
   };
 
   return (
@@ -46,7 +60,7 @@ export const RegisterPage: FunctionComponent = () => {
             <p className="text-sm">{t("registerPage.subtitle")}</p>
           </div>
 
-          <div className="w-full space-y-4 md:max-h-[45dvh] px-1 md:py-4 overflow-y-auto">
+          <div className="w-full space-y-4 md:max-h-[60dvh] px-1 md:py-4 overflow-y-auto">
             <InputField
               control={control}
               name="firstName"
@@ -75,8 +89,14 @@ export const RegisterPage: FunctionComponent = () => {
           </div>
 
           <div className="w-full space-y-2 px-1">
-            <Button type="submit" disabled={!isDirty || !isValid}>
+            <Button
+              type="submit"
+              disabled={!isDirty || !isValid || isRegisterPending}
+            >
               {t("button.register")}
+              {isRegisterPending && (
+                <LoaderCircle className="size-4 animate-spin" />
+              )}
             </Button>
             <p className="text-sm text-center">
               {t("registerPage.alreadyHaveAccount")}
@@ -88,6 +108,10 @@ export const RegisterPage: FunctionComponent = () => {
           </div>
         </form>
       </Form>
+
+      <ErrorModal isOpen={!!errorMessage} onClose={() => setErrorMessage("")}>
+        <p className="text-base max-w-2/3">{t(errorMessage)}</p>
+      </ErrorModal>
     </div>
   );
 };

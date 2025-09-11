@@ -54,7 +54,7 @@ export const useAuthSchema = () => {
           .max(100, {
             message: t("errorMessage.maxLength", {
               field: _.capitalize(t("field.email.label")),
-              max: 100,
+              length: 100,
             }),
           }),
         password: z
@@ -68,7 +68,7 @@ export const useAuthSchema = () => {
           .min(6, {
             message: t("errorMessage.minLength", {
               field: _.capitalize(t("field.password.label")),
-              min: 6,
+              length: 6,
             }),
           }),
       }),

@@ -6,6 +6,8 @@ export const EN = {
     comment: "Comment",
     share: "Share",
     viewDetail: "View detail",
+    logout: "Logout",
+    ok: "OK",
   },
   authLayout: {
     title: "Welcome to {{platform}}",
@@ -43,6 +45,9 @@ export const EN = {
     subtitle:
       "Create your account and start sharing your amazing stories with the world",
     alreadyHaveAccount: "Already have an account?",
+    message: {
+      success: "You have successfully registered! Please login to continue",
+    },
   },
   field: {
     email: {
@@ -70,5 +75,20 @@ export const EN = {
   },
   post: {
     commentPlaceholder: "Add a comment",
+  },
+  errorModal: {
+    title: "Error",
+  },
+  error: {
+    validate: {
+      login: {
+        "invalid-credential":
+          "Email or password is incorrect. Please try again.",
+      },
+    },
+    user: {
+      "already-exists":
+        "Email already exists. Please try again with a different email.",
+    },
   },
 };

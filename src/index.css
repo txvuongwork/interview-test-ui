@@ -53,6 +53,7 @@
   --color-primary-950: var(--color-postvibe-950);
 
   --color-postvibe-purple: var(--color-postvibe-purple);
+  --color-postvibe-error: var(--color-postvibe-error);
 }
 
 :root {
@@ -102,6 +103,7 @@
   --color-postvibe-950: #112077;
 
   --color-postvibe-purple: #7025bd;
+  --color-postvibe-error: #ff5555;
 }
 
 .dark {
@@ -150,6 +152,7 @@
   --color-postvibe-950: #112077;
 
   --color-postvibe-purple: #7025bd;
+  --color-postvibe-error: #ff5555;
 }
 
 @layer base {
