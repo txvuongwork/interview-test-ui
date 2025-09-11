@@ -49,6 +49,9 @@ export const EN = {
       success: "You have successfully registered! Please login to continue",
     },
   },
+  blog: {
+    notFound: "Blog not found",
+  },
   field: {
     email: {
       label: "Email",

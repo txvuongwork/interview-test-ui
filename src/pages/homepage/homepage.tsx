@@ -1,11 +1,11 @@
-import { BlogCard } from "@/components";
+import { BlogCard, Loader } from "@/components";
 import { useInfiniteBlogs } from "@/services";
 import type { TBlog } from "@/types";
 import { queryUtils } from "@/utils";
 import { useEffect, useState, useRef } from "react";
 
 export const Homepage = () => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } =
     useInfiniteBlogs();
 
   const [blogs, setBlogs] = useState<TBlog[]>([]);
@@ -33,14 +33,22 @@ export const Homepage = () => {
 
   return (
     <div className="w-full py-5 space-y-4 max-w-3xl mx-auto">
-      {blogs.map((blog) => (
-        <BlogCard key={blog.id} blog={blog} />
-      ))}
-      <div ref={bottomRef} className="h-2"></div>
-      {isFetchingNextPage && (
+      {isPending ? (
         <div className="flex items-center justify-center w-full">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-postvibe-purple" />
+          <Loader />
         </div>
+      ) : (
+        <>
+          {blogs.map((blog) => (
+            <BlogCard key={blog.id} blog={blog} />
+          ))}
+          <div ref={bottomRef} className="h-2"></div>
+          {isFetchingNextPage && (
+            <div className="flex items-center justify-center w-full">
+              <Loader />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

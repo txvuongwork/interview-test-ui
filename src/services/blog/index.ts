@@ -1,6 +1,6 @@
 import type { TBlog, TListResponse, TResponse } from "@/types";
 import api from "@/config/axios";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { BASE_QUERY_KEYS } from "@/config/react-query";
 
 const PAGE_SIZE = 5;
@@ -17,6 +17,10 @@ const blogApi = {
       },
     });
   },
+
+  getBlogByID: async (id: number | string): Promise<TResponse<TBlog>> => {
+    return await api.get<TBlog>(`/blogs/${id}`);
+  },
 };
 
 export const useInfiniteBlogs = () => {
@@ -31,5 +35,14 @@ export const useInfiniteBlogs = () => {
       }
       return undefined;
     },
+  });
+};
+
+export const useBlogByID = (id: number | string | undefined) => {
+  return useQuery({
+    queryKey: [BASE_QUERY_KEYS.BLOGS, "blog", id],
+    queryFn: () => blogApi.getBlogByID(id as number | string),
+    staleTime: 1000 * 60 * 3,
+    enabled: !!id,
   });
 };

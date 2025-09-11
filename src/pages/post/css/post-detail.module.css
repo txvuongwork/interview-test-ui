@@ -1,0 +1,4 @@
+.blog-content__container p,
+.blog-content__container code {
+  word-break: break-all;
+}

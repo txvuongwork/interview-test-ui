@@ -7,3 +7,4 @@ export * from "./alert-dialog";
 export * from "./tooltip";
 export * from "./modal";
 export * from "./sonner";
+export * from "./loader";
