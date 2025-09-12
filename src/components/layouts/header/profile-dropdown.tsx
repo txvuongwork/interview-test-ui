@@ -29,8 +29,8 @@ export const ProfileDropdown: FunctionComponent = () => {
 
   if (isLoading || !user) {
     return (
-      <div className="relative hidden md:block">
-        <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse" />
+      <div className="relative flex items-center">
+        <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gray-200 rounded-full animate-pulse" />
       </div>
     );
   }
@@ -42,10 +42,10 @@ export const ProfileDropdown: FunctionComponent = () => {
   const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
-    <div className="relative hidden md:flex items-center" ref={profileRef}>
+    <div className="relative flex items-center" ref={profileRef}>
       <button
         onClick={() => setIsProfileOpen(!isProfileOpen)}
-        className="w-9 h-9 rounded-full overflow-hidden hover:ring-2 hover:ring-postvibe-purple hover:ring-offset-2 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-postvibe-purple focus:ring-offset-2"
+        className="w-8 h-8 lg:w-9 lg:h-9 rounded-full overflow-hidden hover:ring-2 hover:ring-postvibe-purple hover:ring-offset-2 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-postvibe-purple focus:ring-offset-2"
       >
         {user.avatar ? (
           <img
@@ -61,7 +61,7 @@ export const ProfileDropdown: FunctionComponent = () => {
         ) : null}
         <div
           className={cn(
-            "w-full h-full bg-postvibe-purple flex items-center justify-center text-white text-sm font-medium",
+            "w-full h-full bg-postvibe-purple flex items-center justify-center text-white text-xs lg:text-sm font-medium",
             {
               hidden: !!user.avatar,
             }
@@ -81,7 +81,7 @@ export const ProfileDropdown: FunctionComponent = () => {
               duration: 0.2,
               ease: [0.4, 0.0, 0.2, 1],
             }}
-            className="absolute right-0 -bottom-2 translate-y-full w-64 p-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10"
+            className="absolute right-0 -bottom-2 translate-y-full w-64 sm:w-72 max-w-[calc(100vw-2rem)] p-1 bg-white border border-gray-300 rounded-lg shadow-lg z-50"
           >
             <div className="px-3 py-3 border-b border-gray-100">
               <div className="flex items-center gap-3">
@@ -124,10 +124,10 @@ export const ProfileDropdown: FunctionComponent = () => {
                 disabled={isLogoutPending}
                 className="hover:bg-red-50 flex items-center gap-3 w-full px-3 py-2 rounded-md transition-colors duration-150 text-left text-sm text-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <LogOut className="w-4 h-4" />
-                <span>{t("button.logout")}</span>
+                <LogOut className="w-4 h-4 flex-shrink-0" />
+                <span className="flex-1">{t("button.logout")}</span>
                 {isLogoutPending && (
-                  <div className="ml-auto">
+                  <div className="flex-shrink-0">
                     <div className="w-4 h-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
                   </div>
                 )}

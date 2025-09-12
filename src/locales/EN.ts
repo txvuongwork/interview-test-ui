@@ -36,6 +36,7 @@ export const EN = {
     searchPlaceholder: "Search content",
     showResults: "Show results for {{query}}",
     searchEmpty: "Please enter content to search",
+    search: "Search",
   },
   loginPage: {
     title: "Welcome Back!",
@@ -70,6 +71,10 @@ export const EN = {
       },
       notFound: "No blog found for ",
     },
+  },
+  mobileMenu: {
+    title: "Menu",
+    account: "Account",
   },
   field: {
     email: {

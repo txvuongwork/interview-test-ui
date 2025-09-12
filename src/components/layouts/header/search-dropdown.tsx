@@ -18,20 +18,25 @@ export const SearchDropdown: FunctionComponent = () => {
 
   useOnClickOutside(searchRef, () => setIsSearchOpen(false));
 
+  const isSearchPage = location.pathname === ROUTE_PATHS.BLOG.SEARCH;
+
   return (
     <div
-      className={cn("relative w-96 hidden md:block", {
-        "hidden md:hidden": location.pathname === ROUTE_PATHS.BLOG.SEARCH,
+      className={cn("relative w-full max-w-xs lg:max-w-sm xl:max-w-md", {
+        hidden: isSearchPage,
       })}
       ref={searchRef}
     >
-      <Input
-        value={searchValue}
-        onChange={onChange}
-        className="w-full"
-        placeholder={t("header.searchPlaceholder")}
-        onFocus={() => setIsSearchOpen(true)}
-      />
+      <div className="relative">
+        <Input
+          value={searchValue}
+          onChange={onChange}
+          className="w-full pr-10"
+          placeholder={t("header.searchPlaceholder")}
+          onFocus={() => setIsSearchOpen(true)}
+        />
+        <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+      </div>
 
       <AnimatePresence>
         {isSearchOpen && (
@@ -43,7 +48,7 @@ export const SearchDropdown: FunctionComponent = () => {
               duration: 0.2,
               ease: [0.4, 0.0, 0.2, 1],
             }}
-            className="absolute w-full p-1 bg-white -bottom-2 border border-gray-300 rounded-md left-0 translate-y-full shadow-lg z-10"
+            className="absolute w-full min-w-[280px] max-w-[400px] p-1 bg-white -bottom-2 border border-gray-300 rounded-md left-0 translate-y-full shadow-lg z-50"
           >
             {debouncedSearchValue ? (
               <Link
@@ -53,15 +58,16 @@ export const SearchDropdown: FunctionComponent = () => {
                     query: debouncedSearchValue,
                   }).toString(),
                 }}
-                className="hover:bg-gray-100 flex items-center gap-2 w-full p-2 rounded-md duration-300"
+                className="hover:bg-gray-100 flex items-center gap-2 w-full p-3 rounded-md duration-300 text-sm"
+                onClick={() => setIsSearchOpen(false)}
               >
-                <Search className="w-4 h-4" />
-                <span>
+                <Search className="w-4 h-4 flex-shrink-0" />
+                <span className="truncate">
                   {t("header.showResults", { query: debouncedSearchValue })}
                 </span>
               </Link>
             ) : (
-              <p className="text-gray-500 w-full p-2 rounded-md">
+              <p className="text-gray-500 w-full p-3 rounded-md text-sm">
                 {t("header.searchEmpty")}
               </p>
             )}
