@@ -8,3 +8,5 @@ export * from "./tooltip";
 export * from "./modal";
 export * from "./sonner";
 export * from "./loader";
+export * from "./separator";
+export * from "./select";

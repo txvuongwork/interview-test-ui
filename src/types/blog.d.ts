@@ -8,4 +8,5 @@ export type TBlog = {
   image: string;
   user: TUser;
   summaryContent: string;
+  commentCount: number;
 };

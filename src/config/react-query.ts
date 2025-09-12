@@ -13,4 +13,5 @@ export const queryClient = new QueryClient({
 export const BASE_QUERY_KEYS = {
   PROFILE: "profile",
   BLOGS: "blogs",
+  COMMENTS: "comments",
 };

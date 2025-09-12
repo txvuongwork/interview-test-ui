@@ -1,9 +1,9 @@
 export const ROUTE_PATHS = {
   ROOT: "/",
-  POST: {
-    ROOT: "/post",
-    SEARCH: "/post/search",
-    DETAIL: "/post/:id",
+  BLOG: {
+    ROOT: "/blogs",
+    SEARCH: "/blogs/search",
+    DETAIL: "/blogs/:id",
   },
   AUTH: {
     ROOT: "/auth",

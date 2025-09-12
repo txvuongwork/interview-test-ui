@@ -8,12 +8,17 @@ const PAGE_SIZE = 5;
 const blogApi = {
   getBlogs: async (
     page = 0,
-    size = PAGE_SIZE
+    size = PAGE_SIZE,
+    searchKeyword: string = "",
+    direction: "ASC" | "DESC" = "DESC"
   ): Promise<TResponse<TListResponse<TBlog>>> => {
     return await api.get<TListResponse<TBlog>>("/blogs", {
       params: {
         page,
         size,
+        searchKeyword,
+        sortBy: "createdDate",
+        sortDirection: direction,
       },
     });
   },
@@ -23,11 +28,20 @@ const blogApi = {
   },
 };
 
-export const useInfiniteBlogs = () => {
+export const useInfiniteBlogs = (
+  searchKeyword: string = "",
+  direction: "ASC" | "DESC" = "DESC"
+) => {
   return useInfiniteQuery({
-    queryKey: [BASE_QUERY_KEYS.BLOGS],
+    queryKey: [BASE_QUERY_KEYS.BLOGS, searchKeyword, direction],
     initialPageParam: 0,
-    queryFn: ({ pageParam = 0 }) => blogApi.getBlogs(pageParam as number),
+    queryFn: ({ pageParam = 0 }) =>
+      blogApi.getBlogs(
+        pageParam as number,
+        PAGE_SIZE,
+        searchKeyword,
+        direction
+      ),
     getNextPageParam: (lastPage) => {
       if (lastPage && lastPage.ok) {
         const { currentPage, totalPages } = lastPage.body;

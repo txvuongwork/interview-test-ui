@@ -1,0 +1,35 @@
+.custom-scrollbar-hover {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.2s ease;
+}
+
+.custom-scrollbar-hover:hover {
+  scrollbar-color: var(--color-postvibe-gray-1) transparent;
+}
+
+.custom-scrollbar-hover::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar-hover::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar-hover::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar-hover:hover::-webkit-scrollbar-thumb {
+  background: var(--color-postvibe-gray-1);
+}
+
+.custom-scrollbar-hover:hover::-webkit-scrollbar-thumb:hover {
+  background: var(--color-postvibe-gray-1);
+}
+
+.custom-scrollbar-hover::-webkit-scrollbar-button {
+  display: none;
+}

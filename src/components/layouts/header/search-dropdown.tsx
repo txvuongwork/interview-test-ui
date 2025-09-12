@@ -1,23 +1,30 @@
 import { Input } from "@/components";
 import { ROUTE_PATHS } from "@/constants";
-import { useSearch } from "@/hook";
-import { useOnClickOutside } from "@/lib/utils";
+import { useSearch } from "@/hooks";
+import { cn, useOnClickOutside } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useRef, useState, type FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export const SearchDropdown: FunctionComponent = () => {
   const { t } = useTranslation();
+  const location = useLocation();
   const { searchValue, onChange, debouncedSearchValue } = useSearch();
+
   const searchRef = useRef<HTMLDivElement | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
   useOnClickOutside(searchRef, () => setIsSearchOpen(false));
 
   return (
-    <div className="relative w-96 hidden md:block" ref={searchRef}>
+    <div
+      className={cn("relative w-96 hidden md:block", {
+        "hidden md:hidden": location.pathname === ROUTE_PATHS.BLOG.SEARCH,
+      })}
+      ref={searchRef}
+    >
       <Input
         value={searchValue}
         onChange={onChange}
@@ -41,7 +48,7 @@ export const SearchDropdown: FunctionComponent = () => {
             {debouncedSearchValue ? (
               <Link
                 to={{
-                  pathname: ROUTE_PATHS.POST.SEARCH,
+                  pathname: ROUTE_PATHS.BLOG.SEARCH,
                   search: new URLSearchParams({
                     query: debouncedSearchValue,
                   }).toString(),

@@ -53,6 +53,8 @@
   --color-primary-950: var(--color-postvibe-950);
 
   --color-postvibe-purple: var(--color-postvibe-purple);
+  --color-postvibe-gray-1: var(--color-postvibe-gray-1);
+  --color-postvibe-gray-2: var(--color-postvibe-gray-2);
   --color-postvibe-error: var(--color-postvibe-error);
 }
 
@@ -103,6 +105,8 @@
   --color-postvibe-950: #112077;
 
   --color-postvibe-purple: #7025bd;
+  --color-postvibe-gray-1: #55578e;
+  --color-postvibe-gray-2: #f8f8fb;
   --color-postvibe-error: #ff5555;
 }
 
@@ -152,6 +156,8 @@
   --color-postvibe-950: #112077;
 
   --color-postvibe-purple: #7025bd;
+  --color-postvibe-gray-1: #55578e;
+  --color-postvibe-gray-2: #f8f8fb;
   --color-postvibe-error: #ff5555;
 }
 

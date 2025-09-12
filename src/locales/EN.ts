@@ -8,6 +8,8 @@ export const EN = {
     viewDetail: "View detail",
     logout: "Logout",
     ok: "OK",
+    search: "Search",
+    reset: "Reset",
   },
   authLayout: {
     title: "Welcome to {{platform}}",
@@ -51,6 +53,23 @@ export const EN = {
   },
   blog: {
     notFound: "Blog not found",
+    commentPlaceholder: "Add a comment",
+    commentCreated: "Comment created successfully!",
+    loadMoreComments: "Load more comments",
+    search: {
+      input: {
+        title: "Search title, content",
+        placeholder: "Search title, content, ...",
+      },
+      select: {
+        title: "Sort by created date",
+        option: {
+          createdDate: "Newest",
+          createdDateAsc: "Oldest",
+        },
+      },
+      notFound: "No blog found for ",
+    },
   },
   field: {
     email: {
@@ -75,9 +94,6 @@ export const EN = {
     invalidFormat: "Please enter a valid {{field}}",
     maxLength: "{{field}} must be less than {{length}} characters",
     minLength: "{{field}} must be at least {{length}} characters",
-  },
-  post: {
-    commentPlaceholder: "Add a comment",
   },
   errorModal: {
     title: "Error",

@@ -3,8 +3,8 @@ import { ROUTE_PATHS } from "@/constants";
 import {
   Homepage,
   LoginPage,
-  PostDetailPage,
-  PostSearchPage,
+  BlogDetailPage,
+  BlogSearchPage,
   RegisterPage,
 } from "@/pages";
 import { createBrowserRouter } from "react-router";
@@ -26,15 +26,15 @@ export const routes = createBrowserRouter([
             element: <Homepage />,
           },
           {
-            path: ROUTE_PATHS.POST.ROOT,
+            path: ROUTE_PATHS.BLOG.ROOT,
             children: [
               {
-                path: ROUTE_PATHS.POST.DETAIL,
-                element: <PostDetailPage />,
+                path: ROUTE_PATHS.BLOG.DETAIL,
+                element: <BlogDetailPage />,
               },
               {
-                path: ROUTE_PATHS.POST.SEARCH,
-                element: <PostSearchPage />,
+                path: ROUTE_PATHS.BLOG.SEARCH,
+                element: <BlogSearchPage />,
               },
             ],
           },
